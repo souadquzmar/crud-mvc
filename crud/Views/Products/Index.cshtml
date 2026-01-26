@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>All Products</h1>
+    @foreach (var product in Model)
+    {
+        <div class="mb-3">
+            <h2>@product.Name</h2>
+            <p>@product.Price</p>
+            <a href="/Products/Details/@product.Id" class="btn btn-primary mr-3">Details</a>
+            <a href="/Products/Delete/@product.Id" class="btn btn-primary">Delete</a>
+        </div>
+    }
+</body>
+
+</html>
