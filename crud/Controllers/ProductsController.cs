@@ -42,5 +42,17 @@ namespace crud.Controllers
             var products = context.Products;
             return View("Index",products);
         }
+        public ViewResult Edit(int id)
+        {
+            var product = context.Products.Find(id);
+            return View("Edit",product);
+        }
+        public ViewResult Update(Product request)
+        {
+            context.Products.Update(request);
+            context.SaveChanges();
+            var products = context.Products;
+            return View("Index",products);
+        }
     }
 }
