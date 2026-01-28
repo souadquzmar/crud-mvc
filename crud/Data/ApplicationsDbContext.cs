@@ -10,6 +10,7 @@ namespace crud.Data
     public class ApplicationsDbContext : DbContext
     {
         public DbSet<Product> Products {get; set;}
+        public DbSet<Category> Categories {get; set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

@@ -1,3 +1,4 @@
+@using crud.Data
 @model Product
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,20 @@
             <label for="description" class="form-label">Product Description</label>
             <textarea class="form-control" id="description" rows="3" name="Description">@Model.Description</textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" name="CategoryId">
+                <option selected>Category</option>
+                @{
+                    ApplicationsDbContext context = new ApplicationsDbContext();
+                    var categories = context.Categories;
+                    foreach (var cat in categories)
+                    {
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

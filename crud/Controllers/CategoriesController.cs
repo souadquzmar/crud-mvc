@@ -7,66 +7,58 @@ using crud.Data;
 using crud.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 
 namespace crud.Controllers
 {
-    public class ProductsController : Controller
+    public class CategoriesController : Controller
     {
         ApplicationsDbContext context = new ApplicationsDbContext();
         public IActionResult Index()
         {
-            var products = context.Products;
-            return View("Index", products);
+            var categories = context.Categories;
+            return View("Index", categories);
         }
         public IActionResult Details(int id)
         {
-            var product = context.Products.Find(id);
-            var category = context.Categories.Find(product.CategoryId);
-            return View("Details", 
-            new{ 
-                Product = product,
-                cat_name = category.Name
-                });
+            var category = context.Categories.Find(id);
+            category.Products = context.Products.Where(p => p.CategoryId == id).ToList();
+            return View("Details", category);
         }
         public IActionResult Create()
         {
-            return View("Create", new Product());
+            return View("Create",new Category());
         }
-        public IActionResult Store(Product request)
+        public IActionResult Store(Category request)
         {
             if (ModelState.IsValid)
             {
-                context.Products.Add(request);
+                context.Categories.Add(request);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View("Create", request);
-
         }
         public IActionResult Delete(int id)
         {
-            var product = context.Products.Find(id);
-            context.Products.Remove(product);
+            var category = context.Categories.Find(id);
+            context.Categories.Remove(category);
             context.SaveChanges();
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int id)
         {
-            var product = context.Products.Find(id);
-            return View("Edit", product);
+            var category = context.Categories.Find(id);
+            return View("Edit",category);
         }
-        public IActionResult Update(Product request)
+        public IActionResult Update(Category request)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                context.Products.Update(request);
+                context.Categories.Update(request);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View("Edit", request);
-        }
+            return View("Edit",request);
+        } 
     }
 }

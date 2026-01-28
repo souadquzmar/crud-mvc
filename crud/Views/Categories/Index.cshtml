@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="my-3">All Categories</h1>
+
+    @foreach(var cat in Model)
+    {
+        <h2 class="my-3">@cat.Name</h2>
+        <a href="/Categories/Details/@cat.Id" class="btn btn-primary">Details</a>
+        <a href="/Categories/Delete/@cat.Id" class="btn btn-primary">Delete</a>
+        <a href="/Categories/Edit/@cat.Id" class="btn btn-primary">Edit</a>
+    }
+</body>
+</html>

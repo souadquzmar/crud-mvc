@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>@Model.Name</h1>
-    <p>@Model.Price</p>
-    <p>@Model.Description</p>
+
+    <h1 class="my-4">Name : @Model.Product.Name</h1>
+    <h3 class="mb-4">Category : @Model.cat_name</h3>
+    <p class="mb-4">Price : @Model.Product.Price</p>
+    <p class="mb-4">Description : @Model.Product.Description</p>
 
 </body>
+
 </html>
