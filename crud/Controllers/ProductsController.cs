@@ -14,45 +14,54 @@ namespace crud.Controllers
     public class ProductsController : Controller
     {
         ApplicationsDbContext context = new ApplicationsDbContext();
-        public ViewResult Index()
+        public IActionResult Index()
         {
             var products = context.Products;
-            return View("Index",products);
+            return View("Index", products);
         }
-        public ViewResult Details(int id)
+        public IActionResult Details(int id)
         {
             var product = context.Products.Find(id);
-            return View("Details",product);
+            return View("Details", product);
         }
-        public ViewResult Create()
+        public IActionResult Create()
         {
-            return View("Create"); 
+            return View("Create",new Product());
         }
-        public ViewResult Store(Product request)
+        public IActionResult Store(Product request)
         {
-            context.Products.Add(request);
-            context.SaveChanges();
-            return View("Create");
+            if (ModelState.IsValid)
+            {
+                context.Products.Add(request);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View("Create", request);
+
         }
-        public ViewResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var product = context.Products.Find(id);
             context.Products.Remove(product);
             context.SaveChanges();
-            var products = context.Products;
-            return View("Index",products);
+            return RedirectToAction("Index");
         }
-        public ViewResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = context.Products.Find(id);
-            return View("Edit",product);
+            return View("Edit", product);
         }
-        public ViewResult Update(Product request)
+        public IActionResult Update(Product request)
         {
-            context.Products.Update(request);
-            context.SaveChanges();
-            var products = context.Products;
-            return View("Index",products);
+            if (ModelState.IsValid)
+            {
+                context.Products.Update(request);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View("Edit", request);
         }
     }
 }
